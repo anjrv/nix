@@ -1,0 +1,208 @@
+{ config, pkgs, ... }:
+
+{
+  home = {
+    username = "anjrv";
+    homeDirectory = "/home/anjrv";
+    packages =
+      with pkgs;
+      let
+        RStudio-with-packages = rstudioWrapper.override
+          {
+            packages = with rPackages; [
+              tidyverse
+              dplyr
+              ggplot2
+              ggthemes
+              ggpubr
+              reshape2
+              scales
+              stringi
+              lubridate
+            ];
+          };
+      in
+      [
+        RStudio-with-packages
+        pandoc
+        texliveFull
+        jq
+        tldr
+        ncdu
+        moar
+        xclip
+        wl-clipboard
+        shellcheck
+        yaml-language-server
+        tree
+        bat
+        btop
+        lsd
+        ripgrep
+        lazygit
+        unzip
+        unrar
+        p7zip
+        yazi
+        zellij
+        ffmpeg
+        direnv
+        neofetch
+        libclang
+        cmake
+        cmake-language-server
+        ninja
+        lua
+        lua-language-server
+        luarocks
+        stylua
+        go
+        php
+        nodejs
+        typescript
+        nodePackages.prettier
+        nodePackages.typescript-language-server
+        rustup
+        jdk
+        scala
+        sbt
+        bloop
+        coursier
+        nil
+        nixpkgs-fmt
+        mpv
+        dconf
+        gamemode
+        neovide
+        firefox
+        stremio
+        google-chrome
+        onlyoffice-bin
+        (wrapOBS {
+          plugins = with obs-studio-plugins; [
+            obs-vkcapture
+          ];
+        })
+        lutris
+        v4l-utils
+      ];
+    stateVersion = "23.11";
+  };
+  programs = {
+    zsh = {
+      enable = true;
+      autocd = true;
+      dotDir = ".config/zsh";
+      enableCompletion = true;
+      enableAutosuggestions = true;
+      history = {
+        size = 20000;
+        save = 10000;
+      };
+      historySubstringSearch.enable = true;
+      plugins = with pkgs; [
+        {
+          name = "zsh-syntax-highlighting";
+          src = fetchFromGitHub {
+            owner = "zsh-users";
+            repo = "zsh-syntax-highlighting";
+            rev = "0.8.0";
+            sha256 = "iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
+          };
+          file = "zsh-syntax-highlighting.zsh";
+        }
+      ];
+      initExtra = ''
+        setopt inc_append_history
+        setopt autocd extendedglob nomatch menucomplete histignorealldups
+        setopt interactive_comments
+          
+        unsetopt beep
+          
+        autoload -Uz compinit
+        zstyle ":completion:*" menu select
+        zmodload zsh/complist
+        _comp_options+=(globdots)
+          
+        autoload -Uz colors && colors
+
+        bindkey "^[[A" history-substring-search-up
+        bindkey "^[[B" history-substring-search-down
+
+        function ex() {
+            if [ -f $1 ] ; then
+                case $1 in
+                    *.tar.bz2)   tar xjf $1   ;;
+                    *.tar.gz)    tar xzf $1   ;;
+                    *.bz2)       bunzip2 $1   ;;
+                    *.rar)       unrar x $1   ;;
+                    *.gz)        gunzip $1    ;;
+                    *.tar)       tar xf $1    ;;
+                    *.tbz2)      tar xjf $1   ;;
+                    *.tgz)       tar xzf $1   ;;
+                    *.zip)       unzip $1     ;;
+                    *.Z)         uncompress $1;;
+                    *.7z)        7z x $1      ;;
+                    *.deb)       ar x $1      ;;
+                    *.tar.xz)    tar xf $1    ;;
+                    *.tar.zst)   unzstd $1    ;;
+                    *)           echo "'$1' cannot be extracted via ex()" ;;
+                esac
+            else
+                echo "'$1' is not a valid file"
+            fi
+        }
+      '';
+      shellAliases = {
+        cp = "cp -i";
+        mv = "mv -i";
+        rm = "rm -i";
+        df = "df -h";
+        free = "free -m";
+        sd = "shutdown -h now";
+        ".." = "cd ..";
+        "..." = "cd ../..";
+        ls = "lsd -lh --group-dirs first";
+        la = "lsd -lhA --group-dirs first";
+        cat = "bat --theme=Dracula";
+        top = "btop";
+        grep = "rg --color=auto";
+        t2 = "tree -L 2";
+        t3 = "tree -L 3";
+        v = "nvim";
+        firmware = "sudo systemctl reboot --firmware-setup";
+        g = "lazygit";
+        gd = "git diff --color | diff-so-fancy";
+        gps = "git push";
+        gpl = "git pull";
+        gcm = "git commit -m";
+        jctl = "journalctl -p 3 -xb";
+        psmem = "ps auxf | sort -nr -k 4 | head -5";
+        pscpu = "ps auxf | sort -nr -k 3 | head -5";
+        ssh = "kitty +kitten ssh";
+      };
+    };
+    starship.enable = true;
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    kitty = {
+      enable = true;
+      theme = "Dracula";
+      font = {
+        name = "JetBrains Mono";
+        size = 14;
+      };
+      shellIntegration = {
+        enableZshIntegration = true;
+        enableBashIntegration = true;
+      };
+      settings = {
+        enable_audio_bell = false;
+        confirm_os_window_close = 0;
+      };
+    };
+    home-manager.enable = true;
+  };
+}
