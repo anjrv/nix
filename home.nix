@@ -95,7 +95,7 @@
   programs = {
     zsh = {
       enable = true;
-      autocd = true;
+      autocd = false;
       dotDir = ".config/zsh";
       enableCompletion = true;
       enableAutosuggestions = true;
