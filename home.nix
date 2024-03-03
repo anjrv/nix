@@ -67,6 +67,7 @@
         nodejs
         typescript
         nodePackages.prettier
+        nodePackages.ts-node
         nodePackages.typescript-language-server
         rustup
         scala
