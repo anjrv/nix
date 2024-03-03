@@ -95,23 +95,12 @@
       dotDir = ".config/zsh";
       enableCompletion = true;
       enableAutosuggestions = true;
+      syntaxHighlighting.enable = true;
       history = {
         size = 20000;
         save = 10000;
       };
       historySubstringSearch.enable = true;
-      plugins = with pkgs; [
-        {
-          name = "zsh-syntax-highlighting";
-          src = fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-syntax-highlighting";
-            rev = "0.8.0";
-            sha256 = "iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
-          };
-          file = "zsh-syntax-highlighting.zsh";
-        }
-      ];
       initExtra = ''
         setopt inc_append_history
         setopt autocd extendedglob nomatch menucomplete histignorealldups
@@ -147,7 +136,7 @@
                     *.tar.xz)    tar xf $1    ;;
                     *.tar.zst)   unzstd $1    ;;
                     *)           echo "'$1' cannot be extracted via ex()" ;;
-                esac
+                esacssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTYuQpd0h4Cz87zr9GsqFFRbkv4Zajyf+Qv82EoY1w+ annajrving@gmail.comssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTYuQpd0h4Cz87zr9GsqFFRbkv4Zajyf+Qv82EoY1w+ annajrving@gmail.com
             else
                 echo "'$1' is not a valid file"
             fi
