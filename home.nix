@@ -68,7 +68,6 @@
         nodePackages.prettier
         nodePackages.typescript-language-server
         rustup
-        jdk
         scala
         sbt
         bloop
@@ -208,6 +207,7 @@
         confirm_os_window_close = 0;
       };
     };
+    java.enable = true;
     home-manager.enable = true;
   };
 }
