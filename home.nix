@@ -75,9 +75,10 @@
         coursier
         nil
         nixpkgs-fmt
-        mpv
         dconf
         gamemode
+        mpv
+        mupdf
         neovide
         firefox
         stremio
