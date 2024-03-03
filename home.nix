@@ -12,13 +12,18 @@
             packages = with rPackages; [
               tidyverse
               dplyr
+              zoo
               ggplot2
               ggthemes
               ggpubr
+              ggh4x
               reshape2
               scales
               stringi
               lubridate
+              rmdformats
+              markdown
+              commonmark
             ];
           };
       in
