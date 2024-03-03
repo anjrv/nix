@@ -136,7 +136,7 @@
                     *.tar.xz)    tar xf $1    ;;
                     *.tar.zst)   unzstd $1    ;;
                     *)           echo "'$1' cannot be extracted via ex()" ;;
-                esacssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTYuQpd0h4Cz87zr9GsqFFRbkv4Zajyf+Qv82EoY1w+ annajrving@gmail.comssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKTYuQpd0h4Cz87zr9GsqFFRbkv4Zajyf+Qv82EoY1w+ annajrving@gmail.com
+                esac
             else
                 echo "'$1' is not a valid file"
             fi
