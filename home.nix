@@ -52,6 +52,7 @@
         zellij
         ffmpeg
         direnv
+        nix-direnv
         neofetch
         libclang
         cmake
@@ -156,6 +157,8 @@
                 echo "'$1' is not a valid file"
             fi
         }
+
+        eval "$(direnv hook zsh)"
       '';
       shellAliases = {
         cp = "cp -i";
