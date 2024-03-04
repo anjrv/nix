@@ -145,6 +145,7 @@
 
   programs = {
     zsh.enable = true;
+    dconf.enable = true;
     steam = {
       enable = true;
       package = pkgs.steam.override {

@@ -76,7 +76,6 @@
         coursier
         nil
         nixpkgs-fmt
-        dconf
         gamemode
         mpv
         mupdf
