@@ -99,6 +99,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    wineWowPackages.stable
     gamescope
     gamemode
     mangohud
@@ -126,10 +127,10 @@
     QT_QPA_PLATFORM = "wayland;xcb";
     #SDL_VIDEODRIVER = "x11";
     CLUTTER_BACKEND = "wayland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_CURRENT_DESKTOP = "KDE";
     XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    WLR_NO_HARDWARE_CURSORS = "1";
+    XDG_SESSION_DESKTOP = "KDE";
+    # WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   xdg = {

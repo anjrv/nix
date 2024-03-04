@@ -90,6 +90,7 @@
             obs-vkcapture
           ];
         })
+        heroic
         lutris
         v4l-utils
       ];
