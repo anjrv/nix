@@ -79,6 +79,7 @@
       package = pkgs.mlocate;
       localuser = null;
     };
+    auto-cpufreq.enable = true;
   };
 
   # Skip some Plasma packages
