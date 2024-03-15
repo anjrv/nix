@@ -90,7 +90,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.anjrv = {
     isNormalUser = true;
-    extraGroups = [ "realtime" "video" "uucp" "input" "networkmanager" "wheel" ];
+    extraGroups = [ "realtime" "video" "uucp" "input" "networkmanager" "wheel" "libvirtd" "docker" ];
     shell = pkgs.zsh;
   };
 
@@ -176,6 +176,10 @@
     (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
   ];
 
+  virtualisation = {
+    libvirtd.enable = true;
+    docker.enable = true;
+  };
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

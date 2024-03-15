@@ -92,6 +92,7 @@
         heroic
         lutris
         v4l-utils
+        virt-manager
       ];
     stateVersion = "23.11";
   };
@@ -100,28 +101,28 @@
       enable = true;
       autocd = false;
       dotDir = ".config/zsh";
-      enableCompletion = true;
-      enableAutosuggestions = true;
       history = {
         size = 20000;
         save = 10000;
+        ignoreAllDups = true;
       };
-      historySubstringSearch.enable = true;
-      plugins = with pkgs; [
-        {
-          name = "zsh-syntax-highlighting";
-          src = fetchFromGitHub {
-            owner = "zsh-users";
-            repo = "zsh-syntax-highlighting";
-            rev = "0.8.0";
-            sha256 = "iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
-          };
-          file = "zsh-syntax-highlighting.zsh";
-        }
-      ];
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      historySubstringSearch = {
+        enable = true;
+        searchUpKey = [
+          "^[[A"
+          "^[OA"
+        ];
+        searchDownKey = [
+          "^[[B"
+          "^[OB"
+        ];
+      };
       initExtra = ''
         setopt inc_append_history
-        setopt autocd extendedglob nomatch menucomplete histignorealldups
+        setopt extendedglob nomatch menucomplete
         setopt interactive_comments
           
         unsetopt beep
@@ -132,9 +133,6 @@
         _comp_options+=(globdots)
           
         autoload -Uz colors && colors
-
-        bindkey "^[[A" history-substring-search-up
-        bindkey "^[[B" history-substring-search-down
 
         function ex() {
             if [ -f $1 ] ; then
@@ -214,5 +212,11 @@
     };
     java.enable = true;
     home-manager.enable = true;
+  };
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
   };
 }
