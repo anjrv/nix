@@ -65,8 +65,8 @@
       displayManager.defaultSession = "plasma";
       displayManager.autoLogin.enable = true;
       displayManager.autoLogin.user = "anjrv";
-      desktopManager.plasma6.enable = true;
     };
+    desktopManager.plasma6.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
