@@ -79,7 +79,7 @@
       package = pkgs.mlocate;
       localuser = null;
     };
-    auto-cpufreq.enable = true;
+    power-profiles-daemon.enable = true;
   };
 
   # Skip some Plasma packages

@@ -77,6 +77,7 @@
         nil
         nixpkgs-fmt
         gamemode
+        yt-dlp
         mpv
         mupdf
         neovide
