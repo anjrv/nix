@@ -54,6 +54,7 @@
   security.rtkit.enable = true;
 
   services = {
+    fstrim.enable = true;
     printing.enable = true;
     xserver = {
       enable = true;
@@ -115,6 +116,7 @@
   ];
 
   environment.sessionVariables = rec {
+    NIXOS_OZONE_WL = "1";
     XDG_CONFIG_HOME = "$HOME/.config";
     XDG_CACHE_HOME = "$HOME/.local/cache";
     XDG_DATA_HOME = "$HOME/.local/share";
@@ -198,5 +200,15 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+  };
 }
