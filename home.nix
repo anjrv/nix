@@ -24,6 +24,7 @@
               rmdformats
               markdown
               commonmark
+              jtools
             ];
           };
       in
