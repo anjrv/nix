@@ -50,7 +50,13 @@
   };
 
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware = {
+    pulseaudio.enable = false;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+  };
   security.rtkit.enable = true;
 
   services = {
