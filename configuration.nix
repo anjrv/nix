@@ -91,6 +91,7 @@
 
   # Skip some Plasma packages
   environment.plasma6.excludePackages = with pkgs.libsForQt5; [
+    kate
     elisa
   ];
 
