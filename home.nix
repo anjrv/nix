@@ -35,6 +35,7 @@
         jq
         tldr
         ncdu
+        dust
         moar
         xclip
         wl-clipboard
@@ -55,6 +56,8 @@
         direnv
         nix-direnv
         neofetch
+        visidata
+        zoxide
         libclang
         cmake
         cmake-language-server
@@ -160,6 +163,7 @@
             fi
         }
 
+        eval "$(zoxide init zsh)"
         eval "$(direnv hook zsh)"
       '';
       shellAliases = {

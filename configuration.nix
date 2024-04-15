@@ -62,6 +62,11 @@
   services = {
     fstrim.enable = true;
     printing.enable = true;
+    displayManager = {
+      defaultSession = "plasma";
+      autoLogin.enable = true;
+      autoLogin.user = "anjrv";
+    };
     xserver = {
       enable = true;
       xkb.layout = "us";
@@ -69,9 +74,6 @@
       libinput.enable = true;
       # Autologin is broken with sddm 
       displayManager.lightdm.enable = true;
-      displayManager.defaultSession = "plasma";
-      displayManager.autoLogin.enable = true;
-      displayManager.autoLogin.user = "anjrv";
     };
     desktopManager.plasma6.enable = true;
     pipewire = {
