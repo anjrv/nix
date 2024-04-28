@@ -62,6 +62,7 @@
   services = {
     fstrim.enable = true;
     printing.enable = true;
+    libinput.enable = true;
     displayManager = {
       defaultSession = "plasma";
       autoLogin.enable = true;
@@ -71,7 +72,6 @@
       enable = true;
       xkb.layout = "us";
       xkb.variant = "";
-      libinput.enable = true;
       # Autologin is broken with sddm 
       displayManager.lightdm.enable = true;
     };
@@ -114,6 +114,7 @@
     gamescope
     gamemode
     mangohud
+    openblas
     vim
     nano
     neovim

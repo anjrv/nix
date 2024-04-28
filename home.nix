@@ -25,6 +25,7 @@
               markdown
               commonmark
               jtools
+              epitools
             ];
           };
       in
@@ -53,6 +54,7 @@
         yazi
         zellij
         ffmpeg
+        imagemagick
         direnv
         nix-direnv
         neofetch
