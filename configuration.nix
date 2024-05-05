@@ -21,6 +21,14 @@
     initrd.luks.devices."luks-fb51bb33-b64e-499d-a768-865155cca044".device = "/dev/disk/by-uuid/fb51bb33-b64e-499d-a768-865155cca044";
   };
 
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+  };
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -70,6 +78,7 @@
     };
     xserver = {
       enable = true;
+      videoDrivers = [ "amdgpu" ];
       xkb.layout = "us";
       xkb.variant = "";
       # Autologin is broken with sddm 
@@ -89,6 +98,32 @@
       localuser = null;
     };
     power-profiles-daemon.enable = true;
+    # tlp = {
+    #   enable = true;
+    #   settings = {
+    #     TLP_DEFAULT_MODE = "BAT";
+    #     CPU_BOOST_ON_AC = 1;
+    #     CPU_BOOST_ON_BAT = 0;
+    #     RUNTIME_PM_ON_AC = "auto";
+    #     RESTORE_THRESHOLDS_ON_BAT = 1;
+    #     SATA_LINKPWR_ON_BAT = "min_power";
+    #     RADEON_POWER_PROFILE_ON_AC = "auto";
+    #     RADEON_POWER_PROFILE_ON_BAT = "low";
+    #     RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
+    #     # DEVICES_TO_DISABLE_ON_BAT = "bluetooth wifi wwan";
+    #     # DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
+    #     # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
+    #     # DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
+    #     # DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
+    #     # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
+    #     # RUNTIME_PM_DRIVER_BLACKLIST = "nvidia amdgpu";
+    #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+    #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    #     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+    #     PCIE_ASPM_ON_BAT = "powersupersave";
+    #     USB_BLACKLIST_BTUSB = 0;
+    #   };
+    # };
   };
 
   # Skip some Plasma packages
@@ -112,12 +147,12 @@
   environment.systemPackages = with pkgs; [
     wineWowPackages.stable
     gamescope
-    gamemode
     mangohud
     openblas
     vim
     nano
     neovim
+    whois
     curl
     wget
     git
@@ -177,7 +212,9 @@
       };
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
     };
+    gamemode.enable = true;
   };
 
   fonts.packages = with pkgs; [

@@ -97,6 +97,7 @@
           ];
         })
         heroic
+        bottles
         lutris
         v4l-utils
         virt-manager
