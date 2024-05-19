@@ -10,7 +10,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.kernelParams = [ "amd_pstate.shared_mem=1" ];
   boot.kernelModules = [ "kvm-amd" "v4l2loopback" "amd-pstate" ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];

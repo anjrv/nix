@@ -26,6 +26,8 @@
               commonmark
               jtools
               epitools
+              easystats
+              logisticRR
             ];
           };
       in
@@ -101,6 +103,7 @@
         lutris
         v4l-utils
         virt-manager
+        wireshark
       ];
     stateVersion = "23.11";
   };
@@ -196,6 +199,8 @@
         psmem = "ps auxf | sort -nr -k 4 | head -5";
         pscpu = "ps auxf | sort -nr -k 3 | head -5";
         ssh = "kitty +kitten ssh";
+        rebuild = "nh os switch";
+        update = "nix flake update $HOME/.dotfiles";
       };
     };
     starship.enable = true;

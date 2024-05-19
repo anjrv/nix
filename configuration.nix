@@ -26,8 +26,15 @@
       enable = true;
       driSupport = true;
       driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+      ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -101,30 +108,19 @@
     # tlp = {
     #   enable = true;
     #   settings = {
-    #     TLP_DEFAULT_MODE = "BAT";
     #     CPU_BOOST_ON_AC = 1;
     #     CPU_BOOST_ON_BAT = 0;
-    #     RUNTIME_PM_ON_AC = "auto";
-    #     RESTORE_THRESHOLDS_ON_BAT = 1;
-    #     SATA_LINKPWR_ON_BAT = "min_power";
-    #     RADEON_POWER_PROFILE_ON_AC = "auto";
-    #     RADEON_POWER_PROFILE_ON_BAT = "low";
-    #     RADEON_DPM_PERF_LEVEL_ON_BAT = "low";
-    #     # DEVICES_TO_DISABLE_ON_BAT = "bluetooth wifi wwan";
-    #     # DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
-    #     # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
-    #     # DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
-    #     # DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
-    #     # DEVICES_TO_ENABLE_ON_LAN_DISCONNECT = "wifi wwan";
-    #     # RUNTIME_PM_DRIVER_BLACKLIST = "nvidia amdgpu";
     #     CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
     #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-    #     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-    #     PCIE_ASPM_ON_BAT = "powersupersave";
-    #     USB_BLACKLIST_BTUSB = 0;
     #   };
     # };
+    emacs = {
+      package = pkgs.emacs-unstable-nox;
+      enable = true;
+    };
   };
+
+  # powerManagement.powertop.enable = true;
 
   # Skip some Plasma packages
   environment.plasma6.excludePackages = with pkgs.libsForQt5; [
@@ -140,7 +136,15 @@
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      (import (builtins.fetchTarball {
+        url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+        sha256 = "0gcm2hzahfvp4h86m6n2s5mcq76hvyxi97bzlglmxmsga4zp4wnq";
+      }))
+    ];
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -158,6 +162,11 @@
     git
     gcc
     killall
+    nh
+    nix-output-monitor
+    nvd
+    wl-clipboard
+    xclip
   ];
 
   environment.sessionVariables = rec {
@@ -179,6 +188,7 @@
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "KDE";
     # WLR_NO_HARDWARE_CURSORS = "1";
+    FLAKE = "$HOME/.dotfiles";
   };
 
   xdg = {
@@ -228,6 +238,7 @@
   virtualisation = {
     libvirtd.enable = true;
     docker.enable = true;
+    waydroid.enable = true;
   };
 
   # Enable the OpenSSH daemon.
