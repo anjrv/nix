@@ -28,6 +28,8 @@
               epitools
               easystats
               logisticRR
+              RcppRoll
+              logbin
             ];
           };
       in
@@ -59,8 +61,6 @@
         imagemagick
         direnv
         nix-direnv
-        neofetch
-        visidata
         zoxide
         libclang
         cmake
@@ -91,7 +91,7 @@
         neovide
         firefox
         stremio
-        google-chrome
+        # google-chrome
         onlyoffice-bin
         (wrapOBS {
           plugins = with obs-studio-plugins; [
@@ -104,8 +104,9 @@
         v4l-utils
         virt-manager
         wireshark
+        zed-editor
       ];
-    stateVersion = "23.11";
+    stateVersion = "23.05";
   };
   programs = {
     zsh = {

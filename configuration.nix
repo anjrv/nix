@@ -22,19 +22,18 @@
   };
 
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [
-        rocmPackages.clr.icd
-      ];
+      enable32Bit = true;
+      # extraPackages = with pkgs; [
+      #   rocmPackages.clr.icd
+      # ];
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  # systemd.tmpfiles.rules = [
+  #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  # ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -64,7 +63,17 @@
     LC_TIME = "en_IE.UTF-8";
   };
 
-  sound.enable = true;
+  # Allow unfree packages
+  nixpkgs = {
+    config.allowUnfree = true;
+    # overlays = [
+    #   (import (builtins.fetchTarball {
+    #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    #     sha256 = "0m9ggk5b06hxzr29zs4g86gr8swjsm8x1n5kgjnywz9nblvy7gsw";
+    #   }))
+    # ];
+  };
+
   hardware = {
     pulseaudio.enable = false;
     bluetooth = {
@@ -90,6 +99,7 @@
       xkb.variant = "";
       # Autologin is broken with sddm 
       displayManager.lightdm.enable = true;
+      excludePackages = with pkgs; [ xterm ];
     };
     desktopManager.plasma6.enable = true;
     pipewire = {
@@ -114,10 +124,10 @@
     #     CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
     #   };
     # };
-    emacs = {
-      package = pkgs.emacs-unstable-nox;
-      enable = true;
-    };
+    # emacs = {
+    #   package = pkgs.emacs-pgtk;
+    #   enable = true;
+    # };
   };
 
   # powerManagement.powertop.enable = true;
@@ -125,7 +135,7 @@
   # Skip some Plasma packages
   environment.plasma6.excludePackages = with pkgs.libsForQt5; [
     kate
-    elisa
+    # elisa
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -133,17 +143,6 @@
     isNormalUser = true;
     extraGroups = [ "realtime" "video" "uucp" "input" "networkmanager" "wheel" "libvirtd" "docker" ];
     shell = pkgs.zsh;
-  };
-
-  # Allow unfree packages
-  nixpkgs = {
-    config.allowUnfree = true;
-    overlays = [
-      (import (builtins.fetchTarball {
-        url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-        sha256 = "0gcm2hzahfvp4h86m6n2s5mcq76hvyxi97bzlglmxmsga4zp4wnq";
-      }))
-    ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -167,6 +166,9 @@
     nvd
     wl-clipboard
     xclip
+    bubblewrap
+    # emacs-pgtk
+    # libsForQt5.polonium
   ];
 
   environment.sessionVariables = rec {
@@ -188,22 +190,24 @@
     XDG_SESSION_TYPE = "wayland";
     XDG_SESSION_DESKTOP = "KDE";
     # WLR_NO_HARDWARE_CURSORS = "1";
+    XCURSOR_SIZE = "48";
     FLAKE = "$HOME/.dotfiles";
   };
 
   xdg = {
     portal = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-kde
-        xdg-desktop-portal-gtk
-      ];
+      # extraPortals = with pkgs; [
+      #   xdg-desktop-portal-kde
+      #   xdg-desktop-portal-gtk
+      # ];
     };
   };
 
   programs = {
     zsh.enable = true;
     dconf.enable = true;
+    xwayland.enable = true;
     steam = {
       enable = true;
       package = pkgs.steam.override {
@@ -222,9 +226,9 @@
       };
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
-      gamescopeSession.enable = true;
+      # gamescopeSession.enable = true;
     };
-    gamemode.enable = true;
+    # gamemode.enable = true;
   };
 
   fonts.packages = with pkgs; [
@@ -256,7 +260,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
   nix = {
     settings = {
